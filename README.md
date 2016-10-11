@@ -1,6 +1,7 @@
 # View Synthesis by Appearance Flow
 
-## Sample ShapeNet Results
+## Sample ShapeNet Results (single input view)
+
 <img src='sample_results/car/01.gif' width=160>
 <img src='sample_results/car/02.gif' width=160>
 <img src='sample_results/car/03.gif' width=160>
@@ -12,6 +13,9 @@
 <img src='sample_results/car/08.gif' width=160>
 <img src='sample_results/car/09.gif' width=160>
 <img src='sample_results/car/10.gif' width=160>
+
+## Sample ShapeNet Results (two input views)
+
 
 ## Sample KITTI Results
 
