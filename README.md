@@ -2,23 +2,26 @@
 
 ## Sample ShapeNet Results (single input view)
 
-<img src='sample_results/car/01.gif' width=160>
-<img src='sample_results/car/02.gif' width=160>
-<img src='sample_results/car/03.gif' width=160>
-<img src='sample_results/car/04.gif' width=160>
-<img src='sample_results/car/05.gif' width=160>
+<img src='sample_results/car_single/01.gif' width=160>
+<img src='sample_results/car_single/02.gif' width=160>
+<img src='sample_results/car_single/03.gif' width=160>
+<img src='sample_results/car_single/04.gif' width=160>
+<img src='sample_results/car_single/05.gif' width=160>
 
-<img src='sample_results/car/06.gif' width=160>
-<img src='sample_results/car/07.gif' width=160>
-<img src='sample_results/car/08.gif' width=160>
-<img src='sample_results/car/09.gif' width=160>
-<img src='sample_results/car/10.gif' width=160>
+<img src='sample_results/car_single/06.gif' width=160>
+<img src='sample_results/car_single/07.gif' width=160>
+<img src='sample_results/car_single/08.gif' width=160>
+<img src='sample_results/car_single/09.gif' width=160>
+<img src='sample_results/car_single/10.gif' width=160>
 
 ## Sample ShapeNet Results (two input views)
+<img src='sample_results/car_multy/01.gif' width=160>
+<img src='sample_results/car_multy/02.gif' width=160>
+<img src='sample_results/car_multy/03.gif' width=160>
+<img src='sample_results/car_multy/04.gif' width=160>
+<img src='sample_results/car_multy/05.gif' width=160>
 
-
-## Sample KITTI Results
-
+## Sample KITTI Results (two view scene fly-through)
 <img src='sample_results/kitti/01.gif' width=210 height=150>
 <img src='sample_results/kitti/02.gif' width=210 height=150>
 <img src='sample_results/kitti/03.gif' width=210 height=150>
