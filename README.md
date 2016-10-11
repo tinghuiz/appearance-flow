@@ -1,6 +1,6 @@
 # View Synthesis by Appearance Flow
 
-## Sample ShapeNet Results (single input view)
+## Sample ShapeNet Results on Single-view 3D object rotation
 
 <img src='sample_results/car_single/01.gif' width=160>
 <img src='sample_results/car_single/02.gif' width=160>
@@ -14,14 +14,7 @@
 <img src='sample_results/car_single/09.gif' width=160>
 <img src='sample_results/car_single/10.gif' width=160>
 
-## Sample ShapeNet Results (two input views)
-<img src='sample_results/car_multi/01.gif' width=160>
-<img src='sample_results/car_multi/02.gif' width=160>
-<img src='sample_results/car_multi/03.gif' width=160>
-<img src='sample_results/car_multi/04.gif' width=160>
-<img src='sample_results/car_multi/05.gif' width=160>
-
-## Sample KITTI Results (two view scene fly-through)
+## Sample KITTI Results on Virtual Scene Fly-through
 <img src='sample_results/kitti/01.gif' width=210 height=150>
 <img src='sample_results/kitti/02.gif' width=210 height=150>
 <img src='sample_results/kitti/03.gif' width=210 height=150>
