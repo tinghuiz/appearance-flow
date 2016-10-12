@@ -1,4 +1,5 @@
-# View Synthesis by Appearance Flow
+# [[View Synthesis by Appearance Flow]](https://arxiv.org/abs/1605.03557)
+[[Tinghui Zhou]](https://people.eecs.berkeley.edu/~tinghuiz/), [[Shubham Tulsiani]](https://people.eecs.berkeley.edu/~shubhtuls/), [[Weilun Sun]](http://sunweilun.github.io/), [[Jitendra Malik]](https://people.eecs.berkeley.edu/~malik/), and [[Alyosha Efros]](https://people.eecs.berkeley.edu/~efros/), ECCV 2016.
 
 ## Overview
 
