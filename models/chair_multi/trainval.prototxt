@@ -1,0 +1,1276 @@
+layer {
+  name: "srcImg"
+  type: "Python"
+  top: "srcImg"
+  top: "tgtImg"
+  top: "auxImg"
+  top: "srcMask"
+  top: "tgtMask"
+  top: "auxMask"
+  top: "srcTform"
+  top: "auxTform"
+  python_param {
+    module: "python_layers"
+    layer: "ShapenetTripletSamplerNoEle"
+    param_str: "{\'shapeListFile\': \'/data/fast/tinghuiz/view_synth/chairs/trainShapes.p\', \'batch\': 10, \'num_tform\': 19, \'img_size\': 224}"
+  }
+}
+layer {
+  name: "gxy"
+  type: "Python"
+  top: "gxy"
+  python_param {
+    module: "python_layers"
+    layer: "Meshgrid"
+    param_str: "{\'height\': 224, \'width\': 224, \'batch\': 10}"
+  }
+}
+layer {
+  name: "mean"
+  type: "Python"
+  top: "mean"
+  python_param {
+    module: "python_layers"
+    layer: "MeanVals"
+    param_str: "{\'height\': 224, \'width\': 224, \'batch\': 10}"
+  }
+}
+layer {
+  name: "Eltwise1"
+  type: "Eltwise"
+  bottom: "srcImg"
+  bottom: "mean"
+  top: "Eltwise1"
+  eltwise_param {
+    coeff: 1
+    coeff: -1
+  }
+}
+layer {
+  name: "Convolution1"
+  type: "Convolution"
+  bottom: "Eltwise1"
+  top: "Convolution1"
+  param {
+    name: "conv0_w"
+  }
+  param {
+    name: "conv0_b"
+  }
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU1"
+  type: "ReLU"
+  bottom: "Convolution1"
+  top: "Convolution1"
+}
+layer {
+  name: "Convolution2"
+  type: "Convolution"
+  bottom: "Convolution1"
+  top: "Convolution2"
+  param {
+    name: "conv1_w"
+  }
+  param {
+    name: "conv1_b"
+  }
+  convolution_param {
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU2"
+  type: "ReLU"
+  bottom: "Convolution2"
+  top: "Convolution2"
+}
+layer {
+  name: "Convolution3"
+  type: "Convolution"
+  bottom: "Convolution2"
+  top: "Convolution3"
+  param {
+    name: "conv2_w"
+  }
+  param {
+    name: "conv2_b"
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU3"
+  type: "ReLU"
+  bottom: "Convolution3"
+  top: "Convolution3"
+}
+layer {
+  name: "Convolution4"
+  type: "Convolution"
+  bottom: "Convolution3"
+  top: "Convolution4"
+  param {
+    name: "conv3_w"
+  }
+  param {
+    name: "conv3_b"
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU4"
+  type: "ReLU"
+  bottom: "Convolution4"
+  top: "Convolution4"
+}
+layer {
+  name: "Convolution5"
+  type: "Convolution"
+  bottom: "Convolution4"
+  top: "Convolution5"
+  param {
+    name: "conv4_w"
+  }
+  param {
+    name: "conv4_b"
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU5"
+  type: "ReLU"
+  bottom: "Convolution5"
+  top: "Convolution5"
+}
+layer {
+  name: "Convolution6"
+  type: "Convolution"
+  bottom: "Convolution5"
+  top: "Convolution6"
+  param {
+    name: "conv5_w"
+  }
+  param {
+    name: "conv5_b"
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU6"
+  type: "ReLU"
+  bottom: "Convolution6"
+  top: "Convolution6"
+}
+layer {
+  name: "InnerProduct1"
+  type: "InnerProduct"
+  bottom: "Convolution6"
+  top: "InnerProduct1"
+  param {
+    name: "fc6_w"
+  }
+  param {
+    name: "fc6_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU7"
+  type: "ReLU"
+  bottom: "InnerProduct1"
+  top: "InnerProduct1"
+}
+layer {
+  name: "Dropout1"
+  type: "Dropout"
+  bottom: "InnerProduct1"
+  top: "InnerProduct1"
+  dropout_param {
+    dropout_ratio: 0
+  }
+}
+layer {
+  name: "InnerProduct2"
+  type: "InnerProduct"
+  bottom: "InnerProduct1"
+  top: "InnerProduct2"
+  param {
+    name: "fc7_w"
+  }
+  param {
+    name: "fc7_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU8"
+  type: "ReLU"
+  bottom: "InnerProduct2"
+  top: "InnerProduct2"
+}
+layer {
+  name: "srcImgFeat"
+  type: "Dropout"
+  bottom: "InnerProduct2"
+  top: "InnerProduct2"
+  dropout_param {
+    dropout_ratio: 0
+  }
+}
+layer {
+  name: "Eltwise2"
+  type: "Eltwise"
+  bottom: "auxImg"
+  bottom: "mean"
+  top: "Eltwise2"
+  eltwise_param {
+    coeff: 1
+    coeff: -1
+  }
+}
+layer {
+  name: "Convolution7"
+  type: "Convolution"
+  bottom: "Eltwise2"
+  top: "Convolution7"
+  param {
+    name: "conv0_w"
+  }
+  param {
+    name: "conv0_b"
+  }
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU9"
+  type: "ReLU"
+  bottom: "Convolution7"
+  top: "Convolution7"
+}
+layer {
+  name: "Convolution8"
+  type: "Convolution"
+  bottom: "Convolution7"
+  top: "Convolution8"
+  param {
+    name: "conv1_w"
+  }
+  param {
+    name: "conv1_b"
+  }
+  convolution_param {
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU10"
+  type: "ReLU"
+  bottom: "Convolution8"
+  top: "Convolution8"
+}
+layer {
+  name: "Convolution9"
+  type: "Convolution"
+  bottom: "Convolution8"
+  top: "Convolution9"
+  param {
+    name: "conv2_w"
+  }
+  param {
+    name: "conv2_b"
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU11"
+  type: "ReLU"
+  bottom: "Convolution9"
+  top: "Convolution9"
+}
+layer {
+  name: "Convolution10"
+  type: "Convolution"
+  bottom: "Convolution9"
+  top: "Convolution10"
+  param {
+    name: "conv3_w"
+  }
+  param {
+    name: "conv3_b"
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU12"
+  type: "ReLU"
+  bottom: "Convolution10"
+  top: "Convolution10"
+}
+layer {
+  name: "Convolution11"
+  type: "Convolution"
+  bottom: "Convolution10"
+  top: "Convolution11"
+  param {
+    name: "conv4_w"
+  }
+  param {
+    name: "conv4_b"
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU13"
+  type: "ReLU"
+  bottom: "Convolution11"
+  top: "Convolution11"
+}
+layer {
+  name: "Convolution12"
+  type: "Convolution"
+  bottom: "Convolution11"
+  top: "Convolution12"
+  param {
+    name: "conv5_w"
+  }
+  param {
+    name: "conv5_b"
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU14"
+  type: "ReLU"
+  bottom: "Convolution12"
+  top: "Convolution12"
+}
+layer {
+  name: "InnerProduct3"
+  type: "InnerProduct"
+  bottom: "Convolution12"
+  top: "InnerProduct3"
+  param {
+    name: "fc6_w"
+  }
+  param {
+    name: "fc6_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU15"
+  type: "ReLU"
+  bottom: "InnerProduct3"
+  top: "InnerProduct3"
+}
+layer {
+  name: "Dropout2"
+  type: "Dropout"
+  bottom: "InnerProduct3"
+  top: "InnerProduct3"
+  dropout_param {
+    dropout_ratio: 0
+  }
+}
+layer {
+  name: "InnerProduct4"
+  type: "InnerProduct"
+  bottom: "InnerProduct3"
+  top: "InnerProduct4"
+  param {
+    name: "fc7_w"
+  }
+  param {
+    name: "fc7_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU16"
+  type: "ReLU"
+  bottom: "InnerProduct4"
+  top: "InnerProduct4"
+}
+layer {
+  name: "auxImgFeat"
+  type: "Dropout"
+  bottom: "InnerProduct4"
+  top: "InnerProduct4"
+  dropout_param {
+    dropout_ratio: 0
+  }
+}
+layer {
+  name: "InnerProduct5"
+  type: "InnerProduct"
+  bottom: "srcTform"
+  top: "InnerProduct5"
+  param {
+    name: "tfc1_w"
+  }
+  param {
+    name: "tfc1_b"
+  }
+  inner_product_param {
+    num_output: 128
+  }
+}
+layer {
+  name: "ReLU17"
+  type: "ReLU"
+  bottom: "InnerProduct5"
+  top: "InnerProduct5"
+}
+layer {
+  name: "InnerProduct6"
+  type: "InnerProduct"
+  bottom: "InnerProduct5"
+  top: "InnerProduct6"
+  param {
+    name: "tfc2_w"
+  }
+  param {
+    name: "tfc2_b"
+  }
+  inner_product_param {
+    num_output: 256
+  }
+}
+layer {
+  name: "srcTformFeat"
+  type: "ReLU"
+  bottom: "InnerProduct6"
+  top: "InnerProduct6"
+}
+layer {
+  name: "InnerProduct7"
+  type: "InnerProduct"
+  bottom: "auxTform"
+  top: "InnerProduct7"
+  param {
+    name: "tfc1_w"
+  }
+  param {
+    name: "tfc1_b"
+  }
+  inner_product_param {
+    num_output: 128
+  }
+}
+layer {
+  name: "ReLU18"
+  type: "ReLU"
+  bottom: "InnerProduct7"
+  top: "InnerProduct7"
+}
+layer {
+  name: "InnerProduct8"
+  type: "InnerProduct"
+  bottom: "InnerProduct7"
+  top: "InnerProduct8"
+  param {
+    name: "tfc2_w"
+  }
+  param {
+    name: "tfc2_b"
+  }
+  inner_product_param {
+    num_output: 256
+  }
+}
+layer {
+  name: "auxTformFeat"
+  type: "ReLU"
+  bottom: "InnerProduct8"
+  top: "InnerProduct8"
+}
+layer {
+  name: "srcFeat"
+  type: "Concat"
+  bottom: "InnerProduct2"
+  bottom: "InnerProduct6"
+  top: "srcFeat"
+}
+layer {
+  name: "auxFeat"
+  type: "Concat"
+  bottom: "InnerProduct4"
+  bottom: "InnerProduct8"
+  top: "auxFeat"
+}
+layer {
+  name: "InnerProduct9"
+  type: "InnerProduct"
+  bottom: "srcFeat"
+  top: "InnerProduct9"
+  param {
+    name: "fc8_w"
+  }
+  param {
+    name: "fc8_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU19"
+  type: "ReLU"
+  bottom: "InnerProduct9"
+  top: "InnerProduct9"
+}
+layer {
+  name: "InnerProduct10"
+  type: "InnerProduct"
+  bottom: "InnerProduct9"
+  top: "InnerProduct10"
+  param {
+    name: "fc9_w"
+  }
+  param {
+    name: "fc9_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU20"
+  type: "ReLU"
+  bottom: "InnerProduct10"
+  top: "InnerProduct10"
+}
+layer {
+  name: "Reshape1"
+  type: "Reshape"
+  bottom: "InnerProduct10"
+  top: "Reshape1"
+  reshape_param {
+    shape {
+      dim: 0
+      dim: 64
+      dim: 8
+      dim: 8
+    }
+  }
+}
+layer {
+  name: "Deconvolution1"
+  type: "Deconvolution"
+  bottom: "Reshape1"
+  top: "Deconvolution1"
+  param {
+    name: "deconv10_w"
+  }
+  param {
+    name: "deconv10_b"
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU21"
+  type: "ReLU"
+  bottom: "Deconvolution1"
+  top: "Deconvolution1"
+}
+layer {
+  name: "Deconvolution2"
+  type: "Deconvolution"
+  bottom: "Deconvolution1"
+  top: "Deconvolution2"
+  param {
+    name: "deconv11_w"
+  }
+  param {
+    name: "deconv11_b"
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU22"
+  type: "ReLU"
+  bottom: "Deconvolution2"
+  top: "Deconvolution2"
+}
+layer {
+  name: "Deconvolution3"
+  type: "Deconvolution"
+  bottom: "Deconvolution2"
+  top: "Deconvolution3"
+  param {
+    name: "deconv12_w"
+  }
+  param {
+    name: "deconv12_b"
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU23"
+  type: "ReLU"
+  bottom: "Deconvolution3"
+  top: "Deconvolution3"
+}
+layer {
+  name: "Deconvolution4"
+  type: "Deconvolution"
+  bottom: "Deconvolution3"
+  top: "Deconvolution4"
+  param {
+    name: "deconv13_w"
+  }
+  param {
+    name: "deconv13_b"
+  }
+  convolution_param {
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU24"
+  type: "ReLU"
+  bottom: "Deconvolution4"
+  top: "Deconvolution4"
+}
+layer {
+  name: "Deconvolution5"
+  type: "Deconvolution"
+  bottom: "Deconvolution4"
+  top: "Deconvolution5"
+  param {
+    name: "deconv14_w"
+  }
+  param {
+    name: "deconv14_b"
+  }
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU25"
+  type: "ReLU"
+  bottom: "Deconvolution5"
+  top: "Deconvolution5"
+}
+layer {
+  name: "Deconvolution6"
+  type: "Deconvolution"
+  bottom: "Deconvolution5"
+  top: "Deconvolution6"
+  param {
+    name: "deconv15_w"
+  }
+  param {
+    name: "deconv15_b"
+  }
+  convolution_param {
+    num_output: 3
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "Resize1"
+  type: "Resize"
+  bottom: "Deconvolution6"
+  top: "Resize1"
+  resize_param {
+    height: 224
+    width: 224
+  }
+}
+layer {
+  name: "srcPredFlow"
+  type: "Slice"
+  bottom: "Resize1"
+  top: "srcPredFlow"
+  top: "srcConf"
+  slice_param {
+    slice_point: 2
+  }
+}
+layer {
+  name: "Eltwise3"
+  type: "Eltwise"
+  bottom: "srcPredFlow"
+  bottom: "gxy"
+  top: "Eltwise3"
+  eltwise_param {
+    coeff: 1
+    coeff: 1
+  }
+}
+layer {
+  name: "srcPredImg"
+  type: "Remap"
+  bottom: "srcImg"
+  bottom: "Eltwise3"
+  top: "srcPredImg"
+}
+layer {
+  name: "InnerProduct11"
+  type: "InnerProduct"
+  bottom: "auxFeat"
+  top: "InnerProduct11"
+  param {
+    name: "fc8_w"
+  }
+  param {
+    name: "fc8_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU26"
+  type: "ReLU"
+  bottom: "InnerProduct11"
+  top: "InnerProduct11"
+}
+layer {
+  name: "InnerProduct12"
+  type: "InnerProduct"
+  bottom: "InnerProduct11"
+  top: "InnerProduct12"
+  param {
+    name: "fc9_w"
+  }
+  param {
+    name: "fc9_b"
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "ReLU27"
+  type: "ReLU"
+  bottom: "InnerProduct12"
+  top: "InnerProduct12"
+}
+layer {
+  name: "Reshape2"
+  type: "Reshape"
+  bottom: "InnerProduct12"
+  top: "Reshape2"
+  reshape_param {
+    shape {
+      dim: 0
+      dim: 64
+      dim: 8
+      dim: 8
+    }
+  }
+}
+layer {
+  name: "Deconvolution7"
+  type: "Deconvolution"
+  bottom: "Reshape2"
+  top: "Deconvolution7"
+  param {
+    name: "deconv10_w"
+  }
+  param {
+    name: "deconv10_b"
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU28"
+  type: "ReLU"
+  bottom: "Deconvolution7"
+  top: "Deconvolution7"
+}
+layer {
+  name: "Deconvolution8"
+  type: "Deconvolution"
+  bottom: "Deconvolution7"
+  top: "Deconvolution8"
+  param {
+    name: "deconv11_w"
+  }
+  param {
+    name: "deconv11_b"
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU29"
+  type: "ReLU"
+  bottom: "Deconvolution8"
+  top: "Deconvolution8"
+}
+layer {
+  name: "Deconvolution9"
+  type: "Deconvolution"
+  bottom: "Deconvolution8"
+  top: "Deconvolution9"
+  param {
+    name: "deconv12_w"
+  }
+  param {
+    name: "deconv12_b"
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU30"
+  type: "ReLU"
+  bottom: "Deconvolution9"
+  top: "Deconvolution9"
+}
+layer {
+  name: "Deconvolution10"
+  type: "Deconvolution"
+  bottom: "Deconvolution9"
+  top: "Deconvolution10"
+  param {
+    name: "deconv13_w"
+  }
+  param {
+    name: "deconv13_b"
+  }
+  convolution_param {
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU31"
+  type: "ReLU"
+  bottom: "Deconvolution10"
+  top: "Deconvolution10"
+}
+layer {
+  name: "Deconvolution11"
+  type: "Deconvolution"
+  bottom: "Deconvolution10"
+  top: "Deconvolution11"
+  param {
+    name: "deconv14_w"
+  }
+  param {
+    name: "deconv14_b"
+  }
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "ReLU32"
+  type: "ReLU"
+  bottom: "Deconvolution11"
+  top: "Deconvolution11"
+}
+layer {
+  name: "Deconvolution12"
+  type: "Deconvolution"
+  bottom: "Deconvolution11"
+  top: "Deconvolution12"
+  param {
+    name: "deconv15_w"
+  }
+  param {
+    name: "deconv15_b"
+  }
+  convolution_param {
+    num_output: 3
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "Resize2"
+  type: "Resize"
+  bottom: "Deconvolution12"
+  top: "Resize2"
+  resize_param {
+    height: 224
+    width: 224
+  }
+}
+layer {
+  name: "auxPredFlow"
+  type: "Slice"
+  bottom: "Resize2"
+  top: "auxPredFlow"
+  top: "auxConf"
+  slice_param {
+    slice_point: 2
+  }
+}
+layer {
+  name: "Eltwise4"
+  type: "Eltwise"
+  bottom: "auxPredFlow"
+  bottom: "gxy"
+  top: "Eltwise4"
+  eltwise_param {
+    coeff: 1
+    coeff: 1
+  }
+}
+layer {
+  name: "auxPredImg"
+  type: "Remap"
+  bottom: "auxImg"
+  bottom: "Eltwise4"
+  top: "auxPredImg"
+}
+layer {
+  name: "Concat1"
+  type: "Concat"
+  bottom: "srcConf"
+  bottom: "auxConf"
+  top: "Concat1"
+}
+layer {
+  name: "confAll"
+  type: "Softmax"
+  bottom: "Concat1"
+  top: "confAll"
+}
+layer {
+  name: "srcSelect"
+  type: "Slice"
+  bottom: "confAll"
+  top: "srcSelect"
+  top: "auxSelect"
+  slice_param {
+    slice_point: 1
+  }
+}
+layer {
+  name: "Concat2"
+  type: "Concat"
+  bottom: "srcSelect"
+  bottom: "srcSelect"
+  bottom: "srcSelect"
+  top: "Concat2"
+}
+layer {
+  name: "srcSelectPred"
+  type: "Eltwise"
+  bottom: "srcPredImg"
+  bottom: "Concat2"
+  top: "srcSelectPred"
+  eltwise_param {
+    operation: PROD
+  }
+}
+layer {
+  name: "Concat3"
+  type: "Concat"
+  bottom: "auxSelect"
+  bottom: "auxSelect"
+  bottom: "auxSelect"
+  top: "Concat3"
+}
+layer {
+  name: "auxSelectPred"
+  type: "Eltwise"
+  bottom: "auxPredImg"
+  bottom: "Concat3"
+  top: "auxSelectPred"
+  eltwise_param {
+    operation: PROD
+  }
+}
+layer {
+  name: "predImg"
+  type: "Eltwise"
+  bottom: "srcSelectPred"
+  bottom: "auxSelectPred"
+  top: "predImg"
+  eltwise_param {
+    coeff: 1
+    coeff: 1
+  }
+}
+layer {
+  name: "InnerProduct13"
+  type: "InnerProduct"
+  bottom: "srcFeat"
+  top: "InnerProduct13"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "mask_fc8"
+  type: "ReLU"
+  bottom: "InnerProduct13"
+  top: "InnerProduct13"
+}
+layer {
+  name: "InnerProduct14"
+  type: "InnerProduct"
+  bottom: "InnerProduct13"
+  top: "InnerProduct14"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "mask_fc9"
+  type: "ReLU"
+  bottom: "InnerProduct14"
+  top: "InnerProduct14"
+}
+layer {
+  name: "mask_fc9_rs"
+  type: "Reshape"
+  bottom: "InnerProduct14"
+  top: "mask_fc9_rs"
+  reshape_param {
+    shape {
+      dim: 0
+      dim: 16
+      dim: 8
+      dim: 8
+    }
+  }
+}
+layer {
+  name: "Deconvolution13"
+  type: "Deconvolution"
+  bottom: "mask_fc9_rs"
+  top: "Deconvolution13"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "mask_deconv10"
+  type: "ReLU"
+  bottom: "Deconvolution13"
+  top: "Deconvolution13"
+}
+layer {
+  name: "Deconvolution14"
+  type: "Deconvolution"
+  bottom: "Deconvolution13"
+  top: "Deconvolution14"
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "mask_deconv11"
+  type: "ReLU"
+  bottom: "Deconvolution14"
+  top: "Deconvolution14"
+}
+layer {
+  name: "Deconvolution15"
+  type: "Deconvolution"
+  bottom: "Deconvolution14"
+  top: "Deconvolution15"
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "mask_deconv12"
+  type: "ReLU"
+  bottom: "Deconvolution15"
+  top: "Deconvolution15"
+}
+layer {
+  name: "Deconvolution16"
+  type: "Deconvolution"
+  bottom: "Deconvolution15"
+  top: "Deconvolution16"
+  convolution_param {
+    num_output: 32
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "mask_deconv13"
+  type: "ReLU"
+  bottom: "Deconvolution16"
+  top: "Deconvolution16"
+}
+layer {
+  name: "Deconvolution17"
+  type: "Deconvolution"
+  bottom: "Deconvolution16"
+  top: "Deconvolution17"
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "mask_deconv14"
+  type: "ReLU"
+  bottom: "Deconvolution17"
+  top: "Deconvolution17"
+}
+layer {
+  name: "mask_deconv15"
+  type: "Deconvolution"
+  bottom: "Deconvolution17"
+  top: "mask_deconv15"
+  convolution_param {
+    num_output: 2
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "predMask"
+  type: "Resize"
+  bottom: "mask_deconv15"
+  top: "predMask"
+  resize_param {
+    height: 224
+    width: 224
+  }
+}
+layer {
+  name: "maskLoss"
+  type: "SoftmaxWithLoss"
+  bottom: "predMask"
+  bottom: "tgtMask"
+  top: "maskLoss"
+  loss_weight: 0.1
+}
+layer {
+  name: "imgLoss"
+  type: "Python"
+  bottom: "predImg"
+  bottom: "tgtImg"
+  bottom: "tgtMask"
+  top: "imgLoss"
+  loss_weight: 1.0
+  python_param {
+    module: "python_layers"
+    layer: "MaskedL1Loss"
+  }
+}
