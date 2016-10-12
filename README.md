@@ -4,14 +4,15 @@
 
 We address the problem of novel view synthesis: given an input image, synthesizing new images of the same object or scene observed from arbitrary viewpoints. We approach this as a learning task but, critically, instead of learning to synthesize pixels from scratch, we learn to copy them from the input image. Our approach exploits the observation that the visual appearance of different views of the same instance is highly correlated, and such correlation could be explicitly learned by training a convolutional neural network (CNN) to predict **appearance flows** – 2-D coordinate vectors specifying which pixels in the input view could be used to reconstruct the target view. Furthermore, the proposed framework easily generalizes to multiple input views by learning how to optimally combine single-view predictions. 
 
-Link to the [[Paper]](https://arxiv.org/abs/1605.03557)
-
 #### Single-view network architecture:
 <img src='single_net.png' width=500>
 
 #### Multi-view network architecture:
 <img src='multi_net.png' width=500>
 
+Link to the [[Paper]](https://arxiv.org/abs/1605.03557) [[Poster]](https://people.eecs.berkeley.edu/~tinghuiz/projects/appearanceFlow/poster.pdf)
+
+Please contact Tinghui Zhou (tinghuiz@berkeley.edu) if you have any questions.
 
 ## Citing
 
@@ -62,3 +63,7 @@ The task is to synthesize a fly-through effect for the 3D scene given only two i
 
 * Code for rendering ShapeNet models.
 * Code for running experiments in the paper.
+
+## Acknowledgement
+
+We thank Philipp Krähenbühl and Abhishek Kar for helpful discussions. This work was supported in part by NSF award IIS-1212798, Intel/NSF Visual and Experiential Computing award IIS-1539099 and a Berkeley Fellowship. We gratefully acknowledge NVIDIA corporation for the donation of GPUs used for this research.
