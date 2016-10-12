@@ -1,0 +1,10 @@
+folder_path = test/
+envmap_path = envmaps/envmap.hdr
+theta_inc = 30
+phi_inc = 10
+phi_max = 30
+output_coord = 0
+render_size = 512
+output_size = 256
+reverse_normals = 1
+brightness = 2
