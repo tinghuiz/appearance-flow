@@ -31,6 +31,7 @@ If you find our paper/code useful, please consider citing:
 * A copy of Caffe used for our experiments is included. Specifically, it includes our CPU implementation of the bilinear differentiable image sampler (see 'include/caffe/layers/remap_layer.hpp' and 'src/caffe/layers/remap_layer.cpp').
 * 'models/' contains sample prototxt files of our view synthesis models. The caffemodels can be downloaded via https://people.eecs.berkeley.edu/~tinghuiz/projects/appearanceFlow/caffemodels/[MODEL_NAME].caffemodel 
 * 'data/' contains the lists of training and testing shapes in our ShapeNet experiments.
+* 'ObjRenderer/' contains the rendering code we used for generating ShapeNet rendered views.
 
 ## Sample ShapeNet Results on Single-view 3D object rotation
 The input view is marked with green bounding boxes. All the other views are synthesized by our single-view object rotation network.
@@ -62,8 +63,7 @@ The task is to synthesize a fly-through effect for the 3D scene given only two i
 
 ## TODO
 
-* Code for rendering ShapeNet models.
-* Code for running experiments in the paper.
+* Code for running the experiments in the paper.
 
 ## Acknowledgement
 
