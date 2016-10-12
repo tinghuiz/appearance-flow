@@ -1,19 +1,19 @@
 # View Synthesis by Appearance Flow
 
-### Overview
+## Overview
 
 We address the problem of novel view synthesis: given an input image, synthesizing new images of the same object or scene observed from arbitrary viewpoints. We approach this as a learning task but, critically, instead of learning to synthesize pixels from scratch, we learn to copy them from the input image. Our approach exploits the observation that the visual appearance of different views of the same instance is highly correlated, and such correlation could be explicitly learned by training a convolutional neural network (CNN) to predict **appearance flows** – 2-D coordinate vectors specifying which pixels in the input view could be used to reconstruct the target view. Furthermore, the proposed framework easily generalizes to multiple input views by learning how to optimally combine single-view predictions. 
 
 Link to the [[Paper]](https://arxiv.org/abs/1605.03557)
 
-##### Single-view network architecture:
+#### Single-view network architecture:
 <img src='single_net.png' width=500>
 
-##### Multi-view network architecture:
+#### Multi-view network architecture:
 <img src='multi_net.png' width=500>
 
 
-### Citing
+## Citing
 
 If you find our paper/code useful, please consider citing:
 
@@ -24,13 +24,14 @@ If you find our paper/code useful, please consider citing:
 		year={2016}
 	}
 
-### Repo organization:
+## Repo organization:
 
 * A copy of Caffe used for our experiments is included. Specifically, it includes our CPU implementation of the bilinear differentiable image sampler (see 'include/caffe/layers/remap_layer.hpp' and 'src/caffe/layers/remap_layer.cpp').
 * 'models/' contains sample prototxt files of our view synthesis models. The caffemodels can be downloaded via https://people.eecs.berkeley.edu/~tinghuiz/projects/appearanceFlow/caffemodels/[MODEL_NAME].caffemodel 
 * 'data/' contains the lists of training and testing shapes in our ShapeNet experiments.
 
-### Sample ShapeNet Results on Single-view 3D object rotation
+## Sample ShapeNet Results on Single-view 3D object rotation
+The input view is marked with green bounding boxes. All the other views are synthesized by our single-view object rotation network.
 
 <img src='sample_results/car_single/01.gif' width=160>
 <img src='sample_results/car_single/02.gif' width=160>
@@ -44,7 +45,9 @@ If you find our paper/code useful, please consider citing:
 <img src='sample_results/car_single/09.gif' width=160>
 <img src='sample_results/car_single/10.gif' width=160>
 
-### Sample KITTI Results on Virtual Scene Fly-through
+## Sample KITTI Results on Virtual Scene Fly-through
+The task is to synthesize a fly-through effect for the 3D scene given only two input views (the first one marked in green, and the second one marked in red). All the intermediate frames are synthesized.
+
 <img src='sample_results/kitti/01.gif' width=210 height=150>
 <img src='sample_results/kitti/02.gif' width=210 height=150>
 <img src='sample_results/kitti/03.gif' width=210 height=150>
@@ -55,7 +58,7 @@ If you find our paper/code useful, please consider citing:
 <img src='sample_results/kitti/07.gif' width=210 height=150>
 <img src='sample_results/kitti/08.gif' width=210 height=150>
 
-### TODO
+## TODO
 
 * Code for rendering ShapeNet models.
 * Code for running experiments in the paper.
