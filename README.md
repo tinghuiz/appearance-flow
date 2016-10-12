@@ -1,10 +1,17 @@
 # View Synthesis by Appearance Flow
 
-### Abstract
+### Overview
 
 We address the problem of novel view synthesis: given an input image, synthesizing new images of the same object or scene observed from arbitrary viewpoints. We approach this as a learning task but, critically, instead of learning to synthesize pixels from scratch, we learn to copy them from the input image. Our approach exploits the observation that the visual appearance of different views of the same instance is highly correlated, and such correlation could be explicitly learned by training a convolutional neural network (CNN) to predict **appearance flows** – 2-D coordinate vectors specifying which pixels in the input view could be used to reconstruct the target view. Furthermore, the proposed framework easily generalizes to multiple input views by learning how to optimally combine single-view predictions. 
 
 Link to the [[Paper]](https://arxiv.org/abs/1605.03557)
+
+##### Single-view network architecture:
+<img src='single_net.png' width=500>
+
+##### Multi-view network architecture:
+<img src='multi_net.png' width=500>
+
 
 ### Citing
 
@@ -20,7 +27,7 @@ If you find our paper/code useful, please consider citing:
 ### Repo organization:
 
 * A copy of Caffe used for our experiments is included. Specifically, it includes our CPU implementation of the bilinear differentiable image sampler (see 'include/caffe/layers/remap_layer.hpp' and 'src/caffe/layers/remap_layer.cpp').
-* 'models/' contains sample prototxt files of our view synthesis models. The caffemodels can be downloaded via https://people.eecs.berkeley.edu/~tinghuiz/projects/appearanceFlow/caffemodels/[model_ name].caffemodel 
+* 'models/' contains sample prototxt files of our view synthesis models. The caffemodels can be downloaded via https://people.eecs.berkeley.edu/~tinghuiz/projects/appearanceFlow/caffemodels/[MODEL_NAME].caffemodel 
 * 'data/' contains the lists of training and testing shapes in our ShapeNet experiments.
 
 ### Sample ShapeNet Results on Single-view 3D object rotation
