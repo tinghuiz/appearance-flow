@@ -47,7 +47,7 @@ The input view is marked with green bounding boxes. All the other views are synt
 <img src='sample_results/car_single/10.gif' width=160>
 
 ## Sample KITTI Results on 3D Scene Fly-through
-The task is to synthesize a fly-through effect for the 3D scene given only two input views (the first one marked in green, and the second one marked in red). All the intermediate frames are synthesized.
+The task is to synthesize a fly-through effect for the 3D scene given only two input views (marked in green and red bounding boxes). All the intermediate frames are synthesized.
 
 <img src='sample_results/kitti/01.gif' width=210 height=150>
 <img src='sample_results/kitti/02.gif' width=210 height=150>
