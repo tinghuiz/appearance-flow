@@ -48,6 +48,52 @@ class MeanVals(caffe.Layer):
 	def backward(self, top, propagate_down, bottom):
 		pass
 
+class MaskedL2Loss(caffe.Layer):
+	def setup(self, bottom, top):
+		try:
+			params = eval(self.param_str_)
+		except:
+			params = {}
+		self.do_scale, self.do_shift = False, False
+		if 'scale' in params:
+			self.do_scale = params['scale']
+		if 'shift' in params:
+			self.do_shift = params['shift']
+		N = bottom[0].data.shape[0]
+
+	def reshape(self, bottom, top):
+		assert len(bottom)>1, "At least 2 bottoms required"
+		assert len(top)==1, "Only one top supported"
+		top[0].reshape(1)
+
+	def forward(self, bottom, top):
+		A = bottom[0].data
+		B = bottom[1].data
+		N = A.shape[0]
+		M = np.ones(N)
+		if len(bottom)>2:
+			M = (bottom[2].data < 0.5).astype(np.float32)
+		top[0].data[0] = 0
+		for n in range(N):
+			a, b, m = 1*A[n], B[n], M[n]
+			if self.do_shift:
+				shift = (np.mean(b-a))*0.99
+				a += shift
+			scale = 1
+			if self.do_scale:
+				scale = np.abs(np.mean(m*a*b) / (np.mean(m*a*a)+1e-10))*0.99 + 0.01
+				a *= scale
+			norm = 1. / (np.sum(m+a*0)+1e-10) / N
+			top[0].data[0] += np.sum(m*(a-b)**2) * norm
+			diff = 2 * m*(a-b) * norm
+			bottom[0].diff[n] = scale * diff
+			bottom[1].diff[n] = -diff
+
+	def backward(self, top, propagate_down, bottom):
+		w = np.sum(top[0].diff)
+		bottom[0].diff[...] *= w
+		bottom[1].diff[...] *= w
+
 class MaskedL1Loss(MaskedL2Loss):
 	def forward(self, bottom, top):
 		A = bottom[0].data

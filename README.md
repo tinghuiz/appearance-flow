@@ -36,34 +36,13 @@ If you find our paper/code useful, please consider citing:
 ## Sample ShapeNet Results on Single-view 3D object rotation
 The input view is marked with green bounding boxes. All the other views are synthesized by our single-view object rotation network.
 
-<img src='sample_results/car_single/01.gif' width=160>
-<img src='sample_results/car_single/02.gif' width=160>
-<img src='sample_results/car_single/03.gif' width=160>
-<img src='sample_results/car_single/04.gif' width=160>
-<img src='sample_results/car_single/05.gif' width=160>
-
-<img src='sample_results/car_single/06.gif' width=160>
-<img src='sample_results/car_single/07.gif' width=160>
-<img src='sample_results/car_single/08.gif' width=160>
-<img src='sample_results/car_single/09.gif' width=160>
-<img src='sample_results/car_single/10.gif' width=160>
+<img src='sample_results/car_single/01.gif' width="160"/> <img src='sample_results/car_single/02.gif' width="160"/> <img src='sample_results/car_single/03.gif' width="160"/> <img src='sample_results/car_single/04.gif' width="160"/> <img src='sample_results/car_single/05.gif' width="160"/>
 
 ## Sample KITTI Results on 3D Scene Fly-through
 The task is to synthesize a fly-through effect for the 3D scene given only two input views (marked in green and red bounding boxes). All the intermediate frames are synthesized.
 
-<img src='sample_results/kitti/01.gif' width=210 height=150>
-<img src='sample_results/kitti/02.gif' width=210 height=150>
-<img src='sample_results/kitti/03.gif' width=210 height=150>
-<img src='sample_results/kitti/04.gif' width=210 height=150>
+<img src='sample_results/kitti/01.gif' width="210" height="150"/> <img src='sample_results/kitti/02.gif' width="210" height="150"/> <img src='sample_results/kitti/03.gif' width="210" height="150"/> <img src='sample_results/kitti/04.gif' width="210" height="150"/>
 
-<img src='sample_results/kitti/05.gif' width=210 height=150>
-<img src='sample_results/kitti/06.gif' width=210 height=150>
-<img src='sample_results/kitti/07.gif' width=210 height=150>
-<img src='sample_results/kitti/08.gif' width=210 height=150>
-
-## TODO
-
-* Code for running the experiments in the paper.
 
 ## Acknowledgement
 
