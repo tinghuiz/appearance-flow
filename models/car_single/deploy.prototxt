@@ -12,52 +12,13 @@ layer {
   }
 }
 layer {
-  name: "tgtImg"
-  type: "DummyData"
-  top: "tgtImg"
-  dummy_data_param {
-    shape {
-      dim: 1
-      dim: 3
-      dim: 224
-      dim: 224
-    }
-  }
-}
-layer {
-  name: "srcMask"
-  type: "DummyData"
-  top: "srcMask"
-  dummy_data_param {
-    shape {
-      dim: 1
-      dim: 1
-      dim: 224
-      dim: 224
-    }
-  }
-}
-layer {
-  name: "tgtMask"
-  type: "DummyData"
-  top: "tgtMask"
-  dummy_data_param {
-    shape {
-      dim: 1
-      dim: 1
-      dim: 224
-      dim: 224
-    }
-  }
-}
-layer {
   name: "tform"
   type: "DummyData"
   top: "tform"
   dummy_data_param {
     shape {
       dim: 1
-      dim: 19
+      dim: 20
     }
   }
 }
